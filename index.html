@@ -35,8 +35,9 @@
             cursor: pointer;
             
         }
-    </style>
-    <body>
+    
+</style>
+<body>
         <h3 style="margin-bottom: 0px;margin-top:-30px;margin-left:650px;">Memory game</h3>
         <div class="card-holder">
         <div class="card" id="1"></div>
@@ -54,7 +55,29 @@
         <div class="card" id="12"></div>
         <div class="card" id="13"></div>
         <div class="card" id="14"></div>
-        <a
         </div>
-    </body>
+    <script>
+            function random(){
+                let x=Math.floor(Math.random() * 14) + 1;
+                if(temp.includes(x)){
+                    return random();
+                }
+                temp.push(x);
+                return x;
+                
+            }
+            let a=[],temp=[];
+            for(let i=0;i<=13;i++){
+                a[i]=[];
+                a[i][0]=i+1;
+                a[i][1]=random()%7+1;
+            }
+            let a1=document.querySelectorAll(".card");
+            a1.forEach((card-holder)=>{
+                card-holder.addEventListener("click", function() {
+                    
+                });
+            });
+    </script>
+</body>
 </html>
