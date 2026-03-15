@@ -10,7 +10,7 @@
             padding-left: 45px;
             background-color: #F4EBD0;
         }
-        .card-holder{
+        .cards{
             width: 950px;
             height: 500px;
             display: flex;
@@ -39,7 +39,7 @@
 </style>
 <body>
         <h3 style="margin-bottom: 0px;margin-top:-30px;margin-left:650px;">Memory game</h3>
-        <div class="card-holder">
+        <div class="cards">
         <div class="card" id="1"></div>
         <div class="card" id="2"></div>
         <div class="card" id="3"></div>      
@@ -56,6 +56,7 @@
         <div class="card" id="13"></div>
         <div class="card" id="14"></div>
         </div>
+        <button style="visibility:hidden;" class="btn">Retry</button>
     <script>
             function random(){
                 let x=Math.floor(Math.random() * 14) + 1;
@@ -64,19 +65,45 @@
                 }
                 temp.push(x);
                 return x;
-                
             }
-            let a=[],temp=[];
+            function checks(){
+                if(turns.length===2){
+                    if(a[turns[0]-1][1]==a[turns[1]-1][1]){
+                        pairs.push(turns[0]);
+                        pairs.push(turns[1]);
+                    }else{
+                        let a1=document.getElementById(String(turns[0]));
+                        let a2=document.getElementById(String(turns[1]));
+                        setTimeout(function(){
+                            a1.style.backgroundImage='url("card.jpg")';
+                            a2.style.backgroundImage='url("card.jpg")';
+                        },600);
+                    }
+                    turns.pop();
+                    turns.pop();
+                    if(pairs.length===14){
+                        let btn=document.querySelectorAll()
+                    }
+                }
+            }
+            let a=[],temp=[],pairs=[],turns=[];
             for(let i=0;i<=13;i++){
                 a[i]=[];
                 a[i][0]=i+1;
                 a[i][1]=random()%7+1;
             }
             let a1=document.querySelectorAll(".card");
-            a1.forEach((card-holder)=>{
-                card-holder.addEventListener("click", function() {
-                    
-                });
+            a1.forEach((cards)=>{
+                cards.addEventListener("click", function() {
+                    let ab=Number(cards.getAttribute("id"));
+                    if(!pairs.includes(ab)){
+                        turns.push(ab);
+                        let ac=document.getElementById(cards.getAttribute("id"));
+                        let ad='img/'+a[ab-1][1]+'.jpg';
+                        ac.style.backgroundImage = `url("${ad}")`;
+                        checks();
+                    }
+                })
             });
     </script>
 </body>
