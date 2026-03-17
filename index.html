@@ -85,7 +85,7 @@
             if(timerInterval) return;
             timerInterval=setInterval(()=>{
                 seconds++;
-                document.getElementById('seconds').innerText=seconds;
+                document.getElementById('seconds').innerText=Math.floor(seconds/60)+'min '+seconds%60+'sec';
             },1000);
         }
         function random(){
@@ -117,7 +117,7 @@
                     }
                     turns.pop();
                     turns.pop();
-                    if(pairs.length===2){
+                    if(pairs.length===14){
                         stopTimer();
                         let timers=document.getElementById('time');
                         timers.innerText='You have completed the puzzle in '+Math.floor(seconds/60)+'min '+seconds%60+'sec';

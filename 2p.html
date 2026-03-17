@@ -1,0 +1,112 @@
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Card flip 2P</title>
+    </head>
+    <style>
+        body{
+            padding-left: 45px;
+            padding-top: 40px;
+            background-color: #F4EBD0;
+        }
+        .cards{
+            width: 950px;
+            height: 500px;
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: 270px;
+        }
+        .card{
+            width: 140px;
+            height: 185px;
+            background-image: url(card.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 2.5px solid #A4987E;
+            margin: 15px;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }.overlay{
+            display: none;
+            position:fixed;
+            top: 0;left:0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .popup-content{
+            background: white;
+            padding: 20px;
+            width: 300px;
+            margin:15% auto;
+            border-radius: 8px;
+            background-color: #F4EBD0;
+        }
+    </style>
+    <body>
+        <h3 style="margin-bottom: 0px;margin-top:-30px;margin-left:650px;">Memory game</h3>
+        <div class="cards">
+            <div class="card" id="1"></div>
+            <div class="card" id="2"></div>
+            <div class="card" id="3"></div>
+            <div class="card" id="4"></div>
+            <div class="card" id="5"></div>
+            <div class="card" id="6"></div>
+            <div class="card" id="7"></div>
+            <div style="background-color: #F4EBD0;margin:15px;height: 185px;width:140px;width:140px;"></div>
+            <div class="card" id="8"></div>
+            <div class="card" id="9"></div>
+            <div class="card" id="10"></div>
+            <div class="card" id="11"></div>
+            <div class="card" id="12"></div>
+            <div class="card" id="13"></div>
+            <div class="card" id="14"></div>
+        </div>       
+        <div id="popupOverlay">
+            <div class="popup-content">
+                <h2>Congratulations!</h2>
+                <button style="margin-left: 5px;margin-top: 10px;background-color: #F0ECCB;border-radius: 2.5px solid #A4987E;height: 30px;width:50px;" class="btn" onclick="window.location.reload()">Retry</button>
+            </div>
+        </div>
+        <script>
+            function random(){
+                let x=Math.floor(Math.random()*14)+1;
+                if(temp.includes(x)){
+                    return random;
+                }
+                temp.push(x);
+                return x;
+            }
+            function checks(){
+                if(turns.length===2){
+
+                }
+            }
+            let a=[],temp=[],pairs=[],turns=[],i=1;
+            for(let i=0;i<=13;i++){
+                a[i]=[];
+                a[i][0]=i+1;
+                a[i][1]=random()%7+1;
+            }
+            let a1=document.querySelectorAll(".card");
+            a1.forEach((cards)=>{
+                cards.addEventListener("click",function(){
+                    let ab=Number(cards.getAttribute("id"));
+                    if(!pairs.includes(ab)&&i==1){
+                        turns.push(ab);
+                        let ac=docum
+                    }
+                }
+            });
+
+        </script>
+    </body>
+</html>
