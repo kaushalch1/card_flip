@@ -2,7 +2,7 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Card flip game 2p</title>    
+    <title>Card flip game</title>    
     </head>
     <style>
         body{
@@ -16,7 +16,6 @@
             display: flex;
             flex-wrap: wrap;
             margin-left:270px;
-            margin-top: -80px;
         }
         .card{
             width: 140px;
@@ -53,9 +52,8 @@
         }
 </style>
 <body>
+    <div class="timer">Timer:<span id="seconds">0</span></div>
         <h3 style="margin-bottom: 0px;margin-top:-30px;margin-left:650px;">Memory game</h3>
-        <p id="playera" style="width:75px;padding-left: 2px;">Player A:</p>
-        <p id="playerb" style="width:75px;padding-left: 2px;">Player B:</p>
         <div class="cards">
         <div class="card" id="1"></div>
         <div class="card" id="2"></div>
@@ -76,11 +74,20 @@
         <div id="popupOverlay" class="overlay" >
             <div class="popup-content">
                 <h2>Congratulations!</h2>
-                <h4 id="pops"></h4>
-                <button style="margin-left: 05px;margin-top: 10px;background-color: #F0ECCB;border:2.5px solid #A4987E;height:30px;width:70px;"class="btn" onclick="window.location.reload()">Rematch</button>
+                <p id="time"></p>
+                <button style="margin-left: 05px;margin-top: 10px;background-color: #F0ECCB;border:2.5px solid #A4987E;height:30px;width:50px;"class="btn" onclick="window.location.reload()">Retry</button>
             </div>
         </div>
     <script>
+        let seconds=0;
+        let timerInterval =null;
+        function startTimer(){
+            if(timerInterval) return;
+            timerInterval=setInterval(()=>{
+                seconds++;
+                document.getElementById('seconds').innerText=Math.floor(seconds/60)+'min '+seconds%60+'sec';
+            },1000);
+        }
         function random(){
             let x=Math.floor(Math.random() * 14) + 1;
             if(temp.includes(x)){
@@ -89,20 +96,15 @@
             temp.push(x);
              return x;
         }
+        function stopTimer(){
+            clearInterval(timerInterval);
+            timerInterval=null;
+        }
         function checks(){
                 if(turns.length===2){
                     if(a[turns[0]-1][1]==a[turns[1]-1][1]){
                         pairs.push(turns[0]);
                         pairs.push(turns[1]);
-                        if(curr==='A'){
-                            p1++;
-                            playera.innerText='Player A:'+p1;
-                            // console.log('p1',p1);
-                        }else{
-                            p2++;
-                            playerb.innerText='Player B:'+p2;
-                            // console.log('p2',p2);
-                        }
                     }else{
                         let a1=document.getElementById(String(turns[0]));
                         let a2=document.getElementById(String(turns[1]));
@@ -116,50 +118,26 @@
                     turns.pop();
                     turns.pop();
                     if(pairs.length===14){
+                        stopTimer();
+                        let timers=document.getElementById('time');
+                        timers.innerText='You have completed the puzzle in '+Math.floor(seconds/60)+'min '+seconds%60+'sec';
                         const overlay = document.getElementById('popupOverlay');
                         overlay.style.display = 'block';
-                        if(p1>p2){
-                            pops.innerHTML='Player A has won!<br>Do you want a rematch Player B';
-                        }else if(p2>p1){
-                            pops.innerHTML='Player B has won!<br>Do you want a rematch Player A';
-                        }else{
-                            pops.innerHTML='Both players are tied up!<br>Do you guys want a  rematch';
-                        }
                     }
                 }
             }
-            let a=[],temp=[],pairs=[],turns=[],i=1,p1=0,p2=0,curr='A',currs=0;
-            let pops=document.getElementById("pops");
+            let a=[],temp=[],pairs=[],turns=[],i=1;
             for(let i=0;i<=13;i++){
                 a[i]=[];
                 a[i][0]=i+1;
                 a[i][1]=random()%7+1;
             }
             let a1=document.querySelectorAll(".card");
-            let playera=document.getElementById("playera");
-            let playerb=document.getElementById("playerb");
             a1.forEach((cards)=>{
                 cards.addEventListener("click", function() {
+                    startTimer();
                     let ab=Number(cards.getAttribute("id"));
-                    if(curr==='A'&&currs===2){
-                        curr='B';
-                        currs=1;
-                    }else if(curr==='B'&&currs===2){
-                        curr='A';
-                        currs=1;
-                    }else{
-                        currs++;
-                    }
-                    if(curr==='A'){
-                        playera.style.border="2.5px solid #A4987E";
-                        playerb.style.border="none";
-                    }else if(curr==='B'){
-                        playerb.style.border="2.5px solid #A4987E";
-                        playera.style.border="none";
-                    }
-
                     if(!pairs.includes(ab)&&i==1){
-                        // console.log(curr);
                         turns.push(ab);
                         let ac=document.getElementById(cards.getAttribute("id"));
                         let ad='img/'+a[ab-1][1]+'.jpg';
