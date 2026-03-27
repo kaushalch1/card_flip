@@ -1,0 +1,1 @@
+this is memory game,basically for small children which helps them to memorize things,many modes are being added,i made this using html, the cards background is taken from public sources ,but overall the game logic is made by me and every part is written by me
